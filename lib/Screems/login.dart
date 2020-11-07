@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:por/Providers/UserPrv.dart';
 import 'package:por/Screems/login.dart';
 import 'package:por/Screems/inicio.dart';
+import 'package:por/Screems/principal.dart';
 import 'package:por/Screems/sinup.dart';
+import 'package:por/models/user.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
+  Login({Key key}) : super(key: key);
   _LoginState createState() => _LoginState();
 }
 
@@ -11,6 +16,11 @@ class _LoginState extends State<Login> {
   get email => null;
   String nombre = " ";
   final nombreController = TextEditingController();
+
+  User user = User();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     nombreController.dispose();
@@ -18,6 +28,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget build(BuildContext context) {
+    final UserPrv userProvider = Provider.of<UserPrv>(context);
     return MaterialApp(
       title: 'Login',
       home: Scaffold(
@@ -145,7 +156,7 @@ class _LoginState extends State<Login> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Datos()));
+                                          builder: (context) => SingUp()));
                                 },
                               ),
                             )),
@@ -161,7 +172,12 @@ class _LoginState extends State<Login> {
                       color: Color.fromARGB(255, 252, 79, 50),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Principal()));
+                      },
                       child: Text(
                         'CONTINUAR',
                         style: TextStyle(color: Colors.white),
